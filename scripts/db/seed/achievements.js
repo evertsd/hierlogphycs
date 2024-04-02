@@ -5,7 +5,7 @@ async function seedAchievements(client) {
     const createTable = await createAchievementsTable(client);
     console.log(`Created "achievements" table`);
 
-    await client.sql`DELETE FROM achievements;`;
+    // await client.sql`DELETE FROM achievements;`;
 
     // Insert data into the "achievements" table
     const achievements = await Promise.all(insertAchievements(client, diabloAchievements));

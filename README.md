@@ -37,3 +37,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## Diablo 2 Assets
 https://d2cu.be/cube
+https://www.diablo-2.net/acts/act1/

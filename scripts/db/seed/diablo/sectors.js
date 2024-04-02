@@ -15,4 +15,4 @@ const actOne = {
 
 const diabloSectors = [root, actOne];
 
-module.exports = { actOne, diabloSectors };
+module.exports = { actOne, root, diabloSectors };

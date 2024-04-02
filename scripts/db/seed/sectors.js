@@ -5,8 +5,6 @@ async function seedSectors(client) {
     const createTable = await createSectorsTable(client);
     console.log(`Created "sectors" table`);
 
-    await client.sql`DELETE FROM sectors;`;
-
     // Insert data into the "sectors" table
     const sectors = await Promise.all(insertSectors(client, diabloSectors));
     console.log(`Seeded ${sectors.length} sectors`);

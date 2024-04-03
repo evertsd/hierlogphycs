@@ -24,6 +24,8 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+
+  font-family: Exocet;
 }
 
 @layer utilities {
@@ -38,8 +40,20 @@ body {
   border-top: none;
   border-bottom-left-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
-  margin-bottom: 0.33rem;
+  margin: 0.33rem;
+  margin-top: 0;
   padding: 0.33rem;
+
+  display: flex;
+  align-items: center;
+  font-size: 1.75rem;
+}
+
+.header img {
+  display: inline-block;
+
+  max-width: 3rem;
+  margin-right: 1rem;
 }
 
 .achievement-grid {
@@ -50,6 +64,7 @@ body {
   background: #FFFFFF;
   border-radius: 0.25rem;
   border: 0.167rem solid #101010;
+  margin: 0 0.33rem;
 }
 
 .achievement-grid-tile,
@@ -60,16 +75,24 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: 0.25rem;
+  background: #939393;
 }
 
-.grid-tile-selected {
-  border: 0.25rem solid rgb(0, 255, 0);
+.achievement-grid-tile img,
+.sector-grid-tile img {
+  padding: 0.25rem;
+  height: 5rem;
 }
 
 .achievement-grid-tile {
-  background: #010101;
+  border: 0.167rem solid #010101;
 }
 
 .sector-grid-tile {
-  background: #510400;
+  border: 0.167rem solid #510400;
+}
+
+
+.grid-tile-selected {
+  border: 0.167rem solid rgb(0, 255, 0);
 }

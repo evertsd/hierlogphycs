@@ -88,7 +88,7 @@ function SectorTile (props: TileProps) {
     )
 }
 
-function gridTileSelectedClassName(className: string, isSelected) {
+function gridTileSelectedClassName(className: string, isSelected: boolean) {
     if (!isSelected) return className;
     return `${className} grid-tile-selected`;
 }

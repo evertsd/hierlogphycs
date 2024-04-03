@@ -29,10 +29,13 @@ export default async function Page({ params }: Props) {
   const sector = await fetchSector(params.sectorId);
   const achievements = await fetchAchievements(params.sectorId);
   const sectors = await fetchSectorChildren(params.sectorId);
+  const returnLink = sector.parentSectorId
+    ? `/sector/${sector.parentSectorId}`
+    : '/activity';
 
   return (
     <main>
-      <Header text={sector.name} thumbnail={sector.imageUrl} />
+      <Header text={sector.name} thumbnail={sector.imageUrl} returnLink={returnLink} />
       <AchievementList activityId={activityId} sectors={sectors} achievements={achievements} />
     </main>
   );

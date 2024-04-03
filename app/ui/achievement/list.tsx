@@ -23,10 +23,13 @@ export function AchievementList (props: AchievementListProps) {
     const tiles = useTiles(props);
     const [selectedTile, setSelectedTile] = useState<string | null>(null);
     const onSelectTile = useCallback(function (id: string) {
+        console.info('onSelectTile', id, selectedTile);
         if (id === selectedTile) {
-            createAttainment({ activityId, achievementId: id });
+            console.info('createAttainment');
+            // createAttainment({ activityId, achievementId: id });
             setSelectedTile(null);
         } else {
+            console.info('onSelectTile');
             setSelectedTile(id);
         }
     }, [selectedTile]);
@@ -40,7 +43,7 @@ export function AchievementList (props: AchievementListProps) {
                     <Component
                         key={tile.id}
                         tile={tile}
-                        onClick={onSelectTile}
+                        onClick={() => onSelectTile(tile.id)}
                         isTileSelected={tile.id === selectedTile}
                     />
                 );
@@ -52,23 +55,42 @@ export function AchievementList (props: AchievementListProps) {
 interface TileProps {
     isTileSelected: boolean;
     tile: Tile;
-    onClick: (id: string) => void;
+    onClick: (e: any) => void;
 }
 
-function AchievementTile ({ tile }: TileProps) {
+function AchievementTile (props: TileProps) {
+    const { tile, onClick, isTileSelected } = props;
+
+    const className = gridTileSelectedClassName(
+        'achievement-grid-tile',
+        isTileSelected
+    );
+
     return (
-        <a className="achievement-grid-tile" href={`/sector/${tile.id}`} key={tile.id}>
+        <button className={className} onClick={onClick} key={tile.id}>
+            <img src={tile.thumbnail} />
+        </button>
+    )
+}
+
+function SectorTile (props: TileProps) {
+    const { tile, isTileSelected } = props;
+
+    const className = gridTileSelectedClassName(
+        'sector-grid-tile',
+        isTileSelected
+    );
+
+    return (
+        <a className={className} href={`/sector/${tile.id}`} key={tile.id}>
             <img src={tile.thumbnail} />
         </a>
     )
 }
 
-function SectorTile ({ tile }: TileProps) {
-    return (
-        <a className="achievement-grid-tile" href={`/sector/${tile.id}`} key={tile.id}>
-            <img src={tile.thumbnail} />
-        </a>
-    )
+function gridTileSelectedClassName(className: string, isSelected) {
+    if (!isSelected) return className;
+    return `${className} grid-tile-selected`;
 }
 
 function useTiles({ achievements, sectors }: AchievementListProps) {

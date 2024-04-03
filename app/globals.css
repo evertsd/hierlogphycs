@@ -31,3 +31,45 @@ body {
     text-wrap: balance;
   }
 }
+
+.header {
+  background: #FFFFFF;
+  border: 0.167rem solid #101010;
+  border-top: none;
+  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  margin-bottom: 0.33rem;
+  padding: 0.33rem;
+}
+
+.achievement-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-gap: 0.33rem;
+  padding: 0.33rem;
+  background: #FFFFFF;
+  border-radius: 0.25rem;
+  border: 0.167rem solid #101010;
+}
+
+.achievement-grid-tile,
+.sector-grid-tile {
+  aspect-ratio: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.25rem;
+}
+
+.grid-tile-selected {
+  border: 0.25rem solid rgb(0, 255, 0);
+}
+
+.achievement-grid-tile {
+  background: #010101;
+}
+
+.sector-grid-tile {
+  background: #510400;
+}

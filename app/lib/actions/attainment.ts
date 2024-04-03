@@ -7,4 +7,5 @@ export interface CreateAttainmentRequest {
 
 export async function createAttainment (request: CreateAttainmentRequest) {
     console.log(request);
+    return Promise.resolve();
 }

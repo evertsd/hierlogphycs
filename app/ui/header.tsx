@@ -9,9 +9,11 @@ export function Header (props: HeaderProps) {
     const { text, thumbnail } = props;
 
     return (
-        <h1>
-            {props.thumbnail && <div style={{ backgroundImage: `url(${props.thumbnail})` }} />}
+        <h1 className="header">
+            {props.thumbnail && (
+                <img src={thumbnail} />
+            )}
             {text}
         </h1>
-    )
+    );
 }

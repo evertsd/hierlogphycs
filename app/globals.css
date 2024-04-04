@@ -6,6 +6,7 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --diablo-dark-grey: #010101;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -36,7 +37,7 @@ body {
 
 .header {
   background: #FFFFFF;
-  border: 0.167rem solid #101010;
+  border: 0.167rem solid var(--diablo-dark-grey);
   border-top: none;
   border-bottom-left-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
@@ -47,6 +48,8 @@ body {
   display: flex;
   align-items: center;
   font-size: 1.75rem;
+
+  color: var(--diablo-dark-grey);
 }
 
 .header img {

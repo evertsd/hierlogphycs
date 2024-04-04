@@ -6,7 +6,8 @@ import { AchievementList } from '@/app/ui/achievement/list';
 import { Header } from '@/app/ui/header';
 
 export const metadata: Metadata = {
-  title: 'Activity',
+  title: 'Home',
+  icons: '/diablo/D2-LOD-Logo.png'
 };
 
 /* Hard code this for now so we don't have to implement the following features

@@ -1,10 +1,10 @@
-const { root } = require('./diablo/sectors.js');
+const { rootSector } = require('./diablo/sectors.js');
 const { testBachelorParty } = require('./activities.js');
 
 const activitySectorsToPlant = [
     {
         activity_id: testBachelorParty.id,
-        sector_id: root.id
+        sector_id: rootSector.id
     }
 ];
 

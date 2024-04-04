@@ -19,8 +19,6 @@ const activityId = '13D07535-C59E-4157-A011-F8D2EF4E0CBB';
 export default async function Page() {
   const activity = await fetchActivity(activityId);
   const sectors = await fetchActivitySectors(activityId);
-  
-  console.info(`fetchActivity ${activityId}, ${activity.name}`, activity);
 
   return (
     <main>

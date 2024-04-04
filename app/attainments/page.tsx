@@ -27,7 +27,7 @@ export default async function Page() {
 
   return (
     <main>
-      <Header text={activity.name} thumbnail={activity.imageUrl} />
+      <Header text={activity.name} thumbnail={activity.imageUrl} returnLink="/" />
       <AttainmentsList attainments={attainments} />
     </main>
   );

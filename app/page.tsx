@@ -4,6 +4,7 @@ import { Metadata } from 'next';
 import { fetchActivity, fetchActivitySectors } from '@/app/lib/data';
 import { AchievementList } from '@/app/ui/achievement/list';
 import { Header } from '@/app/ui/header';
+import { Footer } from './ui/footer';
 
 export const metadata: Metadata = {
   title: 'Home',
@@ -25,6 +26,7 @@ export default async function Page() {
     <main>
       <Header text={activity.name} thumbnail={activity.imageUrl} />
       <AchievementList activityId={activityId} sectors={sectors} achievements={[]} />
+      <Footer />
     </main>
   );
 }

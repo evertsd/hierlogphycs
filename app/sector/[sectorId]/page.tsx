@@ -4,6 +4,7 @@ import { Metadata } from 'next';
 import { fetchAchievements, fetchSector, fetchSectorChildren } from '@/app/lib/data';
 import { AchievementList } from '@/app/ui/achievement/list';
 import { Header } from '@/app/ui/header';
+import { Footer } from '@/app/ui/footer';
 
 interface Params {
   activityId: string;
@@ -37,6 +38,7 @@ export default async function Page({ params }: Props) {
     <main>
       <Header text={sector.name} thumbnail={sector.imageUrl} returnLink={returnLink} />
       <AchievementList activityId={activityId} sectors={sectors} achievements={achievements} />
+      <Footer />
     </main>
   );
 }

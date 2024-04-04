@@ -32,7 +32,7 @@ export default async function Page({ params }: Props) {
   const sector = await fetchSector(params.sectorId);
   const achievements = await fetchAchievements(params.sectorId);
   const sectors = await fetchSectorChildren(params.sectorId);
-  // const attainments = await searchRecentAttainments(activityId, 8);
+  const attainments = await searchRecentAttainments(activityId, 8);
   const returnLink = sector.parentSectorId
     ? `/sector/${sector.parentSectorId}`
     : '/activity';
@@ -42,7 +42,7 @@ export default async function Page({ params }: Props) {
       <Header text={sector.name} thumbnail={sector.imageUrl} returnLink={returnLink} />
       <AchievementList activityId={activityId} sectors={sectors} achievements={achievements} />
       <footer>
-        <AttainmentsList attainments={[]} />
+        <AttainmentsList attainments={attainments} />
       </footer>
     </main>
   );

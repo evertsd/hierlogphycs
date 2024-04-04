@@ -4,6 +4,7 @@ import { unstable_noStore } from "next/cache";
 
 export interface Attainment extends
     Pick<Achievement, 'name' | 'imageUrl' | 'sectorId'> {
+        id: string;
         activityId: string;
         achievementId: string;
         attainedAt: string;
@@ -22,6 +23,7 @@ export async function fetchAttainments(request: FetchAttainmentsRequest) {
     try {
         const data = await sql<AttainmentDTO>`
         SELECT
+            attainments.id,
             attainments.activity_id,
             attainments.achievement_id,
             attainments.attained_at,
@@ -39,11 +41,12 @@ export async function fetchAttainments(request: FetchAttainmentsRequest) {
         return data.rows.map(mapAttainment);
     } catch (error) {
         console.error('Database Error:', error);
-        throw new Error('Failed to fetch activity_sectors data.');
+        throw new Error('Failed to fetch attainment data.');
     }
 }
 
 export interface AttainmentDTO {
+    id: string;
     activity_id: string;
     achievement_id: string;
     attained_at: string;
@@ -54,6 +57,7 @@ export interface AttainmentDTO {
 
 export function mapAttainment(dto: AttainmentDTO): Attainment {
     return {
+        id: dto.id,
         activityId: dto.activity_id,
         achievementId: dto.achievement_id,
         attainedAt: dto.attained_at,

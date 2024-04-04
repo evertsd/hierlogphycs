@@ -19,12 +19,12 @@ async function createAttainmentsTable(client) {
     // Create the "attainments" table if it doesn't exist
     return await client.sql`
       CREATE TABLE IF NOT EXISTS attainments (
+        id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
         activity_id UUID NOT NULL,
         achievement_id UUID NOT NULL,
         attained_at TIMESTAMP NOT NULL DEFAULT NOW(),
         FOREIGN KEY (activity_id) REFERENCES activities(id),
-        FOREIGN KEY (achievement_id) REFERENCES achievements(id),
-        UNIQUE(activity_id, achievement_id, attained_at)
+        FOREIGN KEY (achievement_id) REFERENCES achievements(id)
       );
     `;
 }

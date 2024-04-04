@@ -15,6 +15,7 @@ export async function createAttainment (request: CreateAttainmentRequest) {
             VALUES (${activityId}, ${achievementId})
         `;
     } catch (error) {
+        console.log('Database failed to create attainment');
         // If a database error occurs, return a more specific error.
         return {
             message: 'Database Error: Failed to Create Invoice.',

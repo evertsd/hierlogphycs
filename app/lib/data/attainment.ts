@@ -1,5 +1,6 @@
 import { sql } from "@vercel/postgres";
 import { Achievement } from "./achievement";
+import { unstable_noStore } from "next/cache";
 
 export interface Attainment extends
     Pick<Achievement, 'name' | 'imageUrl' | 'sectorId'> {
@@ -16,6 +17,8 @@ export interface FetchAttainmentsRequest {
 }
 
 export async function fetchAttainments(request: FetchAttainmentsRequest) {
+    unstable_noStore();
+
     try {
         const data = await sql<AttainmentDTO>`
         SELECT

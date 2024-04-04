@@ -75,7 +75,8 @@ body {
 }
 
 .achievement-grid-tile,
-.sector-grid-tile {
+.sector-grid-tile,
+.tile {
   aspect-ratio: 1;
 
   display: flex;
@@ -85,10 +86,15 @@ body {
   background: #939393;
 }
 
+.tile img,
 .achievement-grid-tile img,
 .sector-grid-tile img {
   padding: 0.25rem;
   height: 5rem;
+}
+
+.tile {
+  border: 0.167rem solid #010101;
 }
 
 .achievement-grid-tile {

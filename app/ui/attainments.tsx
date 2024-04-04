@@ -3,11 +3,10 @@
 import { createAttainment } from "@/app/lib/actions/attainment";
 import type { Achievement, Sector } from "@/app/lib/data";
 import { useCallback, useMemo, useState } from "react";
+import { Attainment } from "../lib/data/attainment";
 
-export interface AchievementListProps {
-    activityId: string;
-    achievements: Achievement[];
-    sectors: Sector[];
+export interface AttainmentsListProps {
+    attainments: Attainment[];
 }
 
 interface Tile {
@@ -17,16 +16,15 @@ interface Tile {
     thumbnail: string;
 }
 
-export function AchievementList (props: AchievementListProps) {
-    const { activityId } = props;
+export function AttainmentsList (props: AttainmentsListProps) {
+    const { attainments } = props;
 
-    const tiles = useTiles(props);
     const [selectedTile, setSelectedTile] = useState<string | null>(null);
-    const onSelectTile = useCallback(async function (id: string) {
+    const onSelectTile = useCallback(function (id: string) {
         console.info('onSelectTile', id, selectedTile);
         if (id === selectedTile) {
             console.info('createAttainment');
-            await createAttainment({ activityId, achievementId: id });
+            // await createAttainment({ activityId, achievementId: id });
             setSelectedTile(null);
         } else {
             console.info('onSelectTile');
@@ -36,20 +34,21 @@ export function AchievementList (props: AchievementListProps) {
 
     return (
         <div className="achievement-grid">
-            {tiles.map(function (tile) {
-                const Component = tile.type === 'sector' ? SectorTile : AchievementTile;
-
+            {attainments.map(function (tile) {
+                const id = getAttainmentKey(tile);
+                const onClick = () => onSelectTile(id);
                 return (
-                    <Component
-                        key={tile.id}
-                        tile={tile}
-                        onClick={() => onSelectTile(tile.id)}
-                        isTileSelected={tile.id === selectedTile}
-                    />
+                    <button className="tile" onClick={onClick} key={id}>
+                        <img src={tile.imageUrl} />
+                    </button>
                 );
             })}
         </div>
     );
+}
+
+function getAttainmentKey (attainment: Attainment) {
+    return [attainment.activityId, attainment.achievementId, attainment.attainedAt].join('-');
 }
 
 interface TileProps {
@@ -91,28 +90,4 @@ function SectorTile (props: TileProps) {
 function gridTileSelectedClassName(className: string, isSelected: boolean) {
     if (!isSelected) return className;
     return `${className} grid-tile-selected`;
-}
-
-function useTiles({ achievements, sectors }: AchievementListProps) {
-    return useMemo(function () {
-        const tiles: Tile[] = [];
-
-        for (const sector of sectors)
-            tiles.push({
-                type: 'sector',
-                id: sector.id,
-                name: sector.name,
-                thumbnail: sector.imageUrl
-            });
-        
-        for (const achievement of achievements)
-            tiles.push({
-                type: 'achievement',
-                id: achievement.id,
-                name: achievement.name,
-                thumbnail: achievement.imageUrl
-            });
-
-        return tiles;
-    }, [achievements, sectors]);
 }

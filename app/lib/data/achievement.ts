@@ -21,8 +21,7 @@ export async function fetchAchievements(sectorId: string) {
     } catch (error) {
       console.error('Database Error:', error);
       throw new Error('Failed to fetch activity_sectors data.');
-    
-  }
+    }
 }
 
 export interface AchievementDTO {

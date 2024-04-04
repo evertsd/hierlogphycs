@@ -52,6 +52,10 @@ body {
   color: var(--diablo-dark-grey);
 }
 
+.header a {
+  color: var(--diablo-dark-grey);
+}
+
 .header img {
   display: inline-block;
 

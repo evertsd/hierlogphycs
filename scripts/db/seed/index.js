@@ -3,6 +3,7 @@ const { seedAchievements } = require('./achievements');
 const { seedActivities } = require('./activities');
 const { seedActivitySectors } = require('./activitySectors');
 const { seedSectors } = require('./sectors');
+const { seedAttainments } = require('./attainments');
 
 async function main() {
   const client = await db.connect();
@@ -11,6 +12,7 @@ async function main() {
   await seedSectors(client);
   await seedActivitySectors(client);
   await seedAchievements(client);
+  await seedAttainments(client);
 
   await client.end();
 }

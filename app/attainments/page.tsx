@@ -19,12 +19,12 @@ const activityId = '13D07535-C59E-4157-A011-F8D2EF4E0CBB';
 
 export default async function Page() {
     const activity = await fetchActivity(activityId);
-    const attainments = await searchRecentAttainments(activityId, 16);
+    // const attainments = await searchRecentAttainments(activityId, 16);
 
-  return (
-    <main>
-      <Header text={activity.name} thumbnail={activity.imageUrl} returnLink="/" />
-      <AttainmentsList attainments={attainments} />
-    </main>
-  );
+    return (
+      <main>
+        <Header text={activity.name} thumbnail={activity.imageUrl} returnLink="/" />
+        <AttainmentsList attainments={[]} />
+      </main>
+    );
 }

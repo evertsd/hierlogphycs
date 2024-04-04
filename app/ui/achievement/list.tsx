@@ -1,7 +1,8 @@
 'use client';
 
-import { createAttainment } from "@/app/lib/actions/attainment";
+import { createAttainment } from "@/app/lib/attainment/actions";
 import type { Achievement, Sector } from "@/app/lib/data";
+import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
 
 export interface AchievementListProps {
@@ -18,21 +19,7 @@ interface Tile {
 }
 
 export function AchievementList (props: AchievementListProps) {
-    const { activityId } = props;
-
-    const tiles = useTiles(props);
-    const [selectedTile, setSelectedTile] = useState<string | null>(null);
-    const onSelectTile = useCallback(async function (id: string) {
-        console.info('onSelectTile', id, selectedTile);
-        if (id === selectedTile) {
-            console.info('createAttainment');
-            await createAttainment({ activityId, achievementId: id });
-            setSelectedTile(null);
-        } else {
-            console.info('onSelectTile');
-            setSelectedTile(id);
-        }
-    }, [selectedTile]);
+    const { tiles, selectedTile, onSelectTile } = useTiles(props);
 
     return (
         <div className="achievement-grid">
@@ -93,8 +80,18 @@ function gridTileSelectedClassName(className: string, isSelected: boolean) {
     return `${className} grid-tile-selected`;
 }
 
-function useTiles({ achievements, sectors }: AchievementListProps) {
-    return useMemo(function () {
+function useTiles({ activityId, achievements, sectors }: AchievementListProps) {
+    const router = useRouter();
+    const [selectedTile, setSelectedTile] = useState<string | null>(null);
+    const onSelectTile = useCallback(async function (id: string) {
+        if (id !== selectedTile) return setSelectedTile(id);
+
+        await createAttainment({ activityId, achievementId: id });
+        setSelectedTile(null);
+        router.refresh();
+    }, [selectedTile]);
+
+    const tiles = useMemo(function () {
         const tiles: Tile[] = [];
 
         for (const sector of sectors)
@@ -115,4 +112,6 @@ function useTiles({ achievements, sectors }: AchievementListProps) {
 
         return tiles;
     }, [achievements, sectors]);
+
+    return { tiles, selectedTile, onSelectTile }
 }

@@ -5,6 +5,8 @@ import { fetchAchievements, fetchSector, fetchSectorChildren } from '@/app/lib/d
 import { AchievementList } from '@/app/ui/achievement/list';
 import { Header } from '@/app/ui/header';
 import { Footer } from '@/app/ui/footer';
+import { AttainmentsList } from '@/app/ui/attainments';
+import { searchRecentAttainments } from '@/app/lib/attainment/fetch';
 
 interface Params {
   activityId: string;
@@ -30,6 +32,7 @@ export default async function Page({ params }: Props) {
   const sector = await fetchSector(params.sectorId);
   const achievements = await fetchAchievements(params.sectorId);
   const sectors = await fetchSectorChildren(params.sectorId);
+  const attainments = await searchRecentAttainments(activityId, 8);
   const returnLink = sector.parentSectorId
     ? `/sector/${sector.parentSectorId}`
     : '/activity';
@@ -38,7 +41,9 @@ export default async function Page({ params }: Props) {
     <main>
       <Header text={sector.name} thumbnail={sector.imageUrl} returnLink={returnLink} />
       <AchievementList activityId={activityId} sectors={sectors} achievements={achievements} />
-      <Footer />
+      <footer>
+        <AttainmentsList attainments={attainments} />
+      </footer>
     </main>
   );
 }

@@ -1,10 +1,10 @@
 // import { fetchFilteredCustomers } from '@/app/lib/data';
 // import CustomersTable from '@/app/ui/customers/table';
 import { Metadata } from 'next';
-import { fetchActivity, fetchActivitySectors } from '../lib/data';
+import { fetchActivity } from '../lib/data';
 import { Header } from '../ui/header';
-import { fetchAttainments } from '@/app/lib/data/attainment';
 import { AttainmentsList } from '@/app/ui/attainments';
+import { searchRecentAttainments } from '../lib/attainment/fetch';
 
 export const metadata: Metadata = {
   title: 'Attainments',
@@ -19,11 +19,7 @@ const activityId = '13D07535-C59E-4157-A011-F8D2EF4E0CBB';
 
 export default async function Page() {
     const activity = await fetchActivity(activityId);
-    const attainments = await fetchAttainments({
-        activityId,
-        skip: 0,
-        take: 16
-    });
+    const attainments = await searchRecentAttainments(activityId, 16);
 
   return (
     <main>

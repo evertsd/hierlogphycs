@@ -1,45 +1,29 @@
 'use client';
 
-import { createAttainment } from "@/app/lib/actions/attainment";
-import type { Achievement, Sector } from "@/app/lib/data";
-import { useCallback, useMemo, useState } from "react";
-import { Attainment } from "../lib/data/attainment";
+import { useCallback, useState } from "react";
+import { searchRecentAttainments } from "@/app/lib/attainment/fetch";
+import cx from 'classnames';
+import { Attainment } from "@/app/lib/attainment/dto";
+import { deleteAttainment } from "@/app/lib/attainment/actions";
+import { useRouter } from "next/navigation";
 
 export interface AttainmentsListProps {
     attainments: Attainment[];
 }
 
-interface Tile {
-    type: 'sector' | 'achievement';
-    id: string;
-    name: string;
-    thumbnail: string;
-}
-
 export function AttainmentsList (props: AttainmentsListProps) {
     const { attainments } = props;
-
-    const [selectedTile, setSelectedTile] = useState<string | null>(null);
-    const onSelectTile = useCallback(function (id: string) {
-        console.info('onSelectTile', id, selectedTile);
-        if (id === selectedTile) {
-            console.info('createAttainment');
-            // await createAttainment({ activityId, achievementId: id });
-            setSelectedTile(null);
-        } else {
-            console.info('onSelectTile');
-            setSelectedTile(id);
-        }
-    }, [selectedTile]);
+    const { selectedAttainment, onSelectAttainment } = useAttainments();
 
     return (
-        <div className="achievement-grid">
-            {attainments.map(function (tile) {
-                const id = getAttainmentKey(tile);
-                const onClick = () => onSelectTile(id);
+        <div className="attainment-grid">
+            {attainments.map(function (att) {
                 return (
-                    <button className="tile" onClick={onClick} key={id}>
-                        <img src={tile.imageUrl} />
+                    <button
+                        className={cx('tile', att.id === selectedAttainment && 'delete-selected-tile')}
+                        onClick={() => onSelectAttainment(att)}
+                        key={att.id}>
+                        <img src={att.imageUrl} />
                     </button>
                 );
             })}
@@ -47,47 +31,28 @@ export function AttainmentsList (props: AttainmentsListProps) {
     );
 }
 
-function getAttainmentKey (attainment: Attainment) {
-    return [attainment.activityId, attainment.achievementId, attainment.attainedAt].join('-');
-}
+function useAttainments () {
+    const router = useRouter();
+    const [selectedAttainment, setSelectedAttainment] = useState<string | null>(null);
 
-interface TileProps {
-    isTileSelected: boolean;
-    tile: Tile;
-    onClick: (e: any) => void;
-}
+    const onSelectAttainment = useCallback(async function (attainment: Attainment) {
+        console.info('onSelectTile', attainment.id, selectedAttainment);
+        if (attainment.id !== selectedAttainment) {
+            setSelectedAttainment(attainment.id);
+            return;
+        }
 
-function AchievementTile (props: TileProps) {
-    const { tile, onClick, isTileSelected } = props;
+        try {
+            await deleteAttainment(attainment);
+            setSelectedAttainment(null);
+            router.refresh();
+        } catch (e) {
 
-    const className = gridTileSelectedClassName(
-        'achievement-grid-tile',
-        isTileSelected
-    );
+        }
+    }, [selectedAttainment, router]);
 
-    return (
-        <button className={className} onClick={onClick} key={tile.id}>
-            <img src={tile.thumbnail} />
-        </button>
-    )
-}
-
-function SectorTile (props: TileProps) {
-    const { tile, isTileSelected } = props;
-
-    const className = gridTileSelectedClassName(
-        'sector-grid-tile',
-        isTileSelected
-    );
-
-    return (
-        <a className={className} href={`/sector/${tile.id}`} key={tile.id}>
-            <img src={tile.thumbnail} />
-        </a>
-    )
-}
-
-function gridTileSelectedClassName(className: string, isSelected: boolean) {
-    if (!isSelected) return className;
-    return `${className} grid-tile-selected`;
+    return {
+        selectedAttainment,
+        onSelectAttainment
+    }
 }

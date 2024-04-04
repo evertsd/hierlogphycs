@@ -39,6 +39,7 @@ main {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  gap: 0.33rem;
 }
 
 .header,
@@ -46,14 +47,13 @@ footer {
   background: #FFFFFF;
   border: 0.167rem solid var(--diablo-dark-grey);
   padding: 0.33rem;
+  margin: 0 0.33rem;
 }
 
 .header {
   border-top: none;
   border-bottom-left-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
-  margin: 0.33rem;
-  margin-top: 0;
   
   display: flex;
   align-items: center;
@@ -95,6 +95,7 @@ footer {
 footer .attainment-grid {
   border: none;
   padding: 0;
+  margin: 0;
 }
 
 .achievement-grid-tile,

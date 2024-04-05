@@ -5,6 +5,8 @@ const { actFourSector } = require('./actFour.js');
 const { actFiveSector } = require('./actFive.js');
 const { runeSector } = require('./runes.js');
 const { rootSector } = require('./root.js');
+const { lootSector } = require('./loot.js');
+const { torchSector } = require('./torch.js');
 
 const diabloSectors = [
     rootSector,
@@ -13,7 +15,9 @@ const diabloSectors = [
     actThreeSector,
     actFourSector,
     actFiveSector,
-    runeSector
+    runeSector,
+    lootSector,
+    torchSector
 ];
 
 module.exports = { diabloSectors, rootSector };

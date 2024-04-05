@@ -7,6 +7,7 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
   --diablo-dark-grey: #010101;
+  --diablo-unique-color: #A59263;
 }
 
 @media (prefers-color-scheme: dark) {

@@ -1,4 +1,5 @@
 import { sql } from "@vercel/postgres";
+import { unstable_noStore } from "next/cache";
 
 export interface Sector {
     id: string;
@@ -7,10 +8,9 @@ export interface Sector {
     parentSectorId: string | null;
 }
 
-export const revalidate = 0;
-
 export async function fetchSectorChildren(parentSectorId: string) {
-    try {
+  unstable_noStore()  
+  try {
       const data = await sql<SectorDTO>`
         SELECT *
         FROM sectors

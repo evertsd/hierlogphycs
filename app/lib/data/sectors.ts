@@ -9,7 +9,7 @@ export interface Sector {
 }
 
 export async function fetchSectorChildren(parentSectorId: string) {
-  // unstable_noStore()  
+  unstable_noStore()  
   try {
       const data = await sql<SectorDTO>`
         SELECT *

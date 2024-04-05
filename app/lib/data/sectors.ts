@@ -7,6 +7,8 @@ export interface Sector {
     parentSectorId: string | null;
 }
 
+export const revalidate = 0;
+
 export async function fetchSectorChildren(parentSectorId: string) {
     try {
       const data = await sql<SectorDTO>`
